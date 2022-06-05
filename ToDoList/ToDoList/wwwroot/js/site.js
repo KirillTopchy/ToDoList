@@ -10,3 +10,20 @@
         }
     });
 }
+
+function populateForm(i) {
+    $.ajax({
+        url: 'Home/PopulateForm',
+        type: 'GET',
+        data: {
+            id: i
+        },
+        dataType: 'json',
+        success: function(response) {
+            $("#Todo_TaskName").val(response.name);
+            $("#Todo_Id").val(response.id);
+            $("#form-button").val("Update Todo");
+            $("#form-action").attr("action", "/Home/Update");
+        }
+    });
+}
