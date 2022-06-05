@@ -63,18 +63,22 @@ namespace ToDoList.Controllers
                         });
                 }
             }
-            //else
-            //{
-            //    return new TodoViewModel
-            //    {
-            //        TodoList = todoList
-            //    };
-            //}
 
             return new TodoViewModel
             {
                 TodoList = todoList
             };
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            using var con = new SqliteConnection("Data Source=ToDo.db");
+            using var tableCmd = con.CreateCommand();
+            con.Open();
+            tableCmd.CommandText = $"DELETE from todo WHERE Id = '{id}'";
+            tableCmd.ExecuteNonQuery();
+            return Json(new { });
         }
     }
 }
